@@ -551,6 +551,42 @@ text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
                     The first transparent, reserve-anchored NEP-17 token with built-in buy/sell functionality. 
                     No external AMMs required. Every token backed by real on-chain assets.
                 </p>
+<p class="subtitle" style="display:flex;align-items:center;justify-content:center;gap:10px;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" width="28" height="14" aria-label="Glossy red pill" role="img"
+       style="filter: drop-shadow(0 0 6px #ff1a1a) drop-shadow(0 0 12px #ff0000); animation: redGlow 2s ease-in-out infinite alternate;">
+    <defs>
+      <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0" stop-color="#ff5f56"/>
+        <stop offset="1" stop-color="#c62828"/>
+      </linearGradient>
+      <linearGradient id="gloss" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+        <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.45"/>
+        <stop offset="0.9" stop-color="#ffffff" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- main capsule -->
+    <rect x="2" y="4" width="60" height="24" rx="12" ry="12" fill="url(#g)" stroke="#8b0000" stroke-opacity="0.25"/>
+
+    <!-- glossy highlight -->
+    <path d="M8 8 C22 2, 42 2, 56 8 L56 6 C42 0, 22 0, 8 6 Z" fill="url(#gloss)" opacity="0.9"/>
+
+    <!-- thin inner rim for depth -->
+    <rect x="6" y="7" width="48" height="18" rx="9" ry="9" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+  </svg>
+  Vision
+</p>
+
+<style>
+@keyframes redGlow {
+  from { filter: drop-shadow(0 0 6px #ff1a1a) drop-shadow(0 0 12px #ff0000); }
+  to   { filter: drop-shadow(0 0 10px #ff3333) drop-shadow(0 0 20px #ff0000); }
+}
+</style>
+<p class="description">
+NeoIgnite aims to redefine token utility on the Neo blockchain by combining dynamic treasury management, automated DeFi integration, and transparent governance. 
+	It’s not just a token — it’s a self-sustaining financial engine designed for long-term value creation.</p>
                 <a href="#" class="cta-button primary" data-action="buy">BUY NIGN</a>
                 <a href="#" class="cta-button" data-action="treasury">VIEW TREASURY</a>
             </div>
