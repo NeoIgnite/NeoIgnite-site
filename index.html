@@ -84,40 +84,56 @@
             align-items: center;
             padding: 20px;
         }
-.logo {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #00ff00 !important;
-    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
-    text-decoration: none;
-    animation: glow 2s ease-in-out infinite alternate;
-    font-family: 'Orbitron', monospace;
-    display: inline-block;
-}
-.logo:visited,
-.logo:active,
-.logo:hover {
-    color: #00ff00 !important;
-}
-@keyframes glow {
-    from { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
-    to   { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
-}
-.footer-logo {
-    font-size: 2rem;
-    font-weight: 900;
-    color: #00ff00 !important;
-    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
-    text-decoration: none;
-    font-family: 'Orbitron', monospace;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-.footer-logo:visited,
-.footer-logo:active,
-.footer-logo:hover {
-    color: #00ff00 !important;
-}
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 10px #00ff00);
+            transition: all 0.3s ease;
+        }
+        .logo-container:hover .logo-image {
+            filter: drop-shadow(0 0 20px #00ff00);
+            transform: scale(1.05);
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ff00 !important;
+            text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+            text-decoration: none;
+            animation: glow 2s ease-in-out infinite alternate;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+        }
+        .logo:visited,
+        .logo:active,
+        .logo:hover {
+            color: #00ff00 !important;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+            to   { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00ff00 !important;
+            text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .footer-logo:visited,
+        .footer-logo:active,
+        .footer-logo:hover {
+            color: #00ff00 !important;
+        }
         .nav-links {
             display: flex;
             list-style: none;
@@ -484,6 +500,8 @@ text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
             .hero h1 { font-size: 2.5rem; }
             .hero .subtitle { font-size: 1.2rem; }
             .logo { font-size: 2rem; }
+            .logo-image { width: 40px; height: 40px; }
+            .logo-container { gap: 10px; }
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .tokenomics-visual.single { flex-direction: column; }
@@ -517,7 +535,10 @@ text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
 
     <header class="header">
         <nav class="nav container">
-            <a href="#top" class="logo">NEOIGNITE</a>
+            <a href="#top" class="logo-container">
+                <img src="assets/logo.png" alt="NeoIgnite Logo" class="logo-image">
+                <span class="logo">NEOIGNITE</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#treasury">Treasury</a></li>
@@ -586,7 +607,7 @@ text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
 </style>
 <p class="description">
 NeoIgnite aims to redefine token utility on the Neo blockchain by combining dynamic treasury management, automated DeFi integration, and transparent governance. 
-	It’s not just a token — it’s a self-sustaining financial engine designed for long-term value creation.</p>
+	It's not just a token — it's a self-sustaining financial engine designed for long-term value creation.</p>
                 <a href="#" class="cta-button primary" data-action="buy">BUY NIGN</a>
                 <a href="#" class="cta-button" data-action="treasury">VIEW TREASURY</a>
             </div>
