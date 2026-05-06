@@ -1371,6 +1371,23 @@
                 padding-inline: 18px;
             }
 
+            .rebrand-head {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .rebrand-head h2,
+            .rebrand-head p {
+                max-width: none;
+            }
+
+            .rebrand-pill {
+                align-self: flex-start;
+                white-space: normal;
+                line-height: 1.45;
+                padding-block: 10px;
+            }
+
             .nav-links,
             .nav-cta {
                 display: none;
@@ -1384,10 +1401,6 @@
         @media (max-width: 820px) {
             .topbar {
                 padding-inline: 18px;
-            }
-
-            .rebrand-head {
-                flex-direction: column;
             }
 
             .principles-grid,
@@ -1439,6 +1452,37 @@
             .brand-mark {
                 width: 50px;
                 height: 50px;
+            }
+
+            .rebrand-shell {
+                padding: 22px 18px;
+                border-radius: 28px;
+            }
+
+            .rebrand-head {
+                gap: 16px;
+            }
+
+            .rebrand-head h2 {
+                font-size: clamp(2rem, 10vw, 2.85rem);
+                line-height: 1.04;
+                letter-spacing: -0.05em;
+            }
+
+            .rebrand-head p,
+            .rebrand-card p {
+                line-height: 1.65;
+            }
+
+            .rebrand-card {
+                padding: 20px 18px;
+            }
+
+            .rebrand-pill {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                letter-spacing: 0.12em;
             }
 
             .hero-copy h1 {
