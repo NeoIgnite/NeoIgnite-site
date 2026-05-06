@@ -1371,6 +1371,62 @@
                 padding-inline: 18px;
             }
 
+            .orbital-shell {
+                min-height: 500px;
+                padding: 20px;
+            }
+
+            .orbital-core {
+                width: min(100%, 390px);
+            }
+
+            .satellite {
+                min-width: 126px;
+                padding: 11px 12px;
+                font-size: 0.72rem;
+                letter-spacing: 0.09em;
+            }
+
+            .sat-a {
+                top: 6%;
+                left: 4%;
+                right: auto;
+            }
+
+            .sat-b {
+                bottom: 10%;
+                left: 0;
+            }
+
+            .sat-c {
+                top: 37%;
+                right: 0;
+            }
+
+            .core-tile {
+                inset: 18% 19% 18%;
+                padding: 18px 18px 16px;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .core-tile p {
+                font-size: 0.7rem;
+                letter-spacing: 0.16em;
+            }
+
+            .core-tile h2 {
+                font-size: clamp(2.05rem, 5.6vw, 2.75rem);
+                max-width: 6ch;
+            }
+
+            .core-tile strong {
+                max-width: none;
+                font-size: 0.86rem;
+                line-height: 1.25;
+                text-wrap: balance;
+            }
+
             .rebrand-head {
                 flex-direction: column;
                 align-items: stretch;
@@ -1420,23 +1476,45 @@
             }
 
             .orbital-shell {
-                min-height: 480px;
+                min-height: 470px;
                 padding: 16px;
             }
 
             .orbital-core {
-                width: min(100%, 420px);
+                width: min(100%, 360px);
             }
 
             .satellite {
-                min-width: 112px;
-                font-size: 0.7rem;
-                letter-spacing: 0.08em;
+                min-width: 118px;
+                font-size: 0.68rem;
+            }
+
+            .sat-a {
+                top: 4%;
+                left: 2%;
+            }
+
+            .sat-b {
+                bottom: 9%;
+            }
+
+            .sat-c {
+                top: 36%;
+                right: -1%;
             }
 
             .core-tile {
-                inset: 28%;
-                padding: 18px;
+                inset: 20% 18% 19%;
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .core-tile h2 {
+                font-size: clamp(1.95rem, 7.2vw, 2.55rem);
+            }
+
+            .core-tile strong {
+                font-size: 0.8rem;
             }
         }
 
@@ -1500,23 +1578,62 @@
             }
 
             .orbital-shell {
-                min-height: 420px;
+                min-height: 430px;
+                padding: 14px;
+            }
+
+            .orbital-core {
+                width: min(100%, 320px);
+            }
+
+            .satellite {
+                min-width: 0;
+                max-width: 136px;
+                padding: 9px 11px;
+                border-radius: 16px;
+                font-size: 0.62rem;
+                letter-spacing: 0.07em;
+            }
+
+            .satellite span {
+                margin-bottom: 5px;
+                font-size: 0.6rem;
             }
 
             .sat-a {
-                right: -2%;
+                top: 3%;
+                left: 0;
             }
 
             .sat-b {
-                left: -2%;
+                bottom: 11%;
+                left: -1%;
             }
 
             .sat-c {
-                right: -6%;
+                top: 38%;
+                right: -1%;
             }
 
             .core-tile {
-                inset: 26%;
+                inset: 22% 16% 18%;
+                padding: 15px 14px;
+                border-radius: 24px;
+            }
+
+            .core-tile p {
+                font-size: 0.64rem;
+                letter-spacing: 0.14em;
+            }
+
+            .core-tile h2 {
+                font-size: clamp(1.8rem, 8vw, 2.2rem);
+            }
+
+            .core-tile strong {
+                max-width: none;
+                font-size: 0.74rem;
+                line-height: 1.28;
             }
         }
     </style>
