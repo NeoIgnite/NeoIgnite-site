@@ -1,888 +1,1915 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-31YDGDGK7H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-31YDGDGK7H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-31YDGDGK7H');
-</script>
+      gtag('config', 'G-31YDGDGK7H');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neoignite - NIGN Token</title>
+    <meta name="description" content="NeoIgnite is the labs team building ambitious Neo-native products like NeoMeme and AgentPay to help make Neo impossible to ignore again.">
+    <title>NeoIgnite Labs | Building the Next Cycle on Neo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
+        :root {
+            --bg: #050812;
+            --bg-deep: #04060d;
+            --surface: rgba(12, 18, 31, 0.72);
+            --surface-strong: rgba(11, 17, 28, 0.92);
+            --line: rgba(140, 171, 201, 0.18);
+            --line-strong: rgba(140, 171, 201, 0.32);
+            --text: #f4fbff;
+            --muted: #9aa9bd;
+            --cyan: #78eeff;
+            --lime: #cbff76;
+            --amber: #ffb86a;
+            --rose: #ff7d93;
+            --shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
+            --radius-xl: 34px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --max-width: 1260px;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Orbitron', monospace;
-            background: #000;
-            color: #00ff00;
+            min-width: 320px;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(120, 238, 255, 0.12), transparent 28%),
+                radial-gradient(circle at 80% 16%, rgba(203, 255, 118, 0.1), transparent 24%),
+                radial-gradient(circle at 50% 82%, rgba(255, 184, 106, 0.08), transparent 20%),
+                linear-gradient(180deg, #07101d 0%, var(--bg) 34%, var(--bg-deep) 100%);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Matrix Canvas */
-        #matrixCanvas {
+        body::before,
+        body::after {
+            content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        body::before {
             z-index: -2;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 96px 96px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.52), transparent 88%);
+        }
+
+        body::after {
+            z-index: -1;
+            opacity: 0.35;
+            background:
+                linear-gradient(135deg, rgba(120, 238, 255, 0.16), transparent 38%),
+                linear-gradient(225deg, rgba(203, 255, 118, 0.14), transparent 26%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 36%, rgba(255, 255, 255, 0.04) 64%, transparent 100%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        img {
+            max-width: 100%;
             display: block;
         }
 
-        /* Matrix Toggle */
-        .matrix-toggle {
+        #signalCanvas {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-family: 'Orbitron', monospace;
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-        .matrix-toggle:hover {
-            background: rgba(0, 255, 0, 0.1);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            opacity: 0.95;
         }
 
-        /* Main Content */
-        .container {
-            max-width: 1200px;
+        .page-glow {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 18% 14%, rgba(120, 238, 255, 0.16), transparent 18%),
+                radial-gradient(circle at 84% 24%, rgba(203, 255, 118, 0.12), transparent 15%),
+                radial-gradient(circle at 50% 92%, rgba(255, 184, 106, 0.08), transparent 24%);
+            filter: blur(26px);
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px clamp(18px, 4vw, 42px);
+            border-bottom: 1px solid transparent;
+            transition: background 180ms ease, border-color 180ms ease, backdrop-filter 180ms ease;
+        }
+
+        .topbar[data-elevated="true"] {
+            background: rgba(5, 8, 18, 0.82);
+            border-color: rgba(140, 171, 201, 0.16);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand,
+        .nav-links,
+        .hero-actions,
+        .hero-signals,
+        .panel-head,
+        .marquee-track,
+        .footer-links,
+        .footer-social {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand {
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            padding: 0;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            border: 1px solid rgba(120, 238, 255, 0.28);
+            background: linear-gradient(180deg, rgba(6, 10, 18, 0.96), rgba(8, 12, 20, 0.9));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 28px rgba(120, 238, 255, 0.16);
+        }
+
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 31%;
+            transform: scale(1.62);
+        }
+
+        .brand-copy strong,
+        .brand-copy span {
+            display: block;
+        }
+
+        .brand-copy strong {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .brand-copy span {
+            color: var(--muted);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            margin-top: 3px;
+        }
+
+        .nav-shell {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-links {
+            gap: 26px;
+            list-style: none;
+            color: var(--muted);
+        }
+
+        .nav-links a {
+            position: relative;
+            padding-bottom: 5px;
+            font-size: 0.95rem;
+            transition: color 160ms ease;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            transform: scaleX(0);
+            transform-origin: left;
+            background: linear-gradient(90deg, var(--cyan), var(--lime));
+            transition: transform 160ms ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            transform: scaleX(1);
+        }
+
+        .nav-cta,
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line-strong);
+            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .nav-cta {
+            background: rgba(255, 255, 255, 0.04);
+            font-size: 0.92rem;
+        }
+
+        .nav-cta:hover,
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            border: 1px solid var(--line-strong);
+            background: rgba(255, 255, 255, 0.04);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--text);
+            transition: transform 180ms ease, opacity 180ms ease;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: sticky;
+            top: 81px;
+            z-index: 35;
+            margin: 0 18px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(8, 13, 23, 0.94);
+            backdrop-filter: blur(18px);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: var(--muted);
+        }
+
+        .hero,
+        .section,
+        .footer-inner,
+        .rebrand-callout {
+            width: min(var(--max-width), calc(100% - 36px));
             margin: 0 auto;
-            padding: 0 20px;
+        }
+
+        .rebrand-callout {
+            padding-top: 28px;
+        }
+
+        .rebrand-shell {
+            display: grid;
+            gap: 20px;
+            padding: 28px;
+            border: 1px solid rgba(140, 171, 201, 0.16);
+            border-radius: var(--radius-xl);
+            background: linear-gradient(180deg, rgba(12, 20, 32, 0.88), rgba(7, 11, 22, 0.94));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .rebrand-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .rebrand-shell,
+        .rebrand-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rebrand-shell > * {
             position: relative;
             z-index: 1;
         }
 
-        /* Header */
-        .header {
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid #00ff00;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #00ff00 !important;
-            text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
-            text-decoration: none;
-            animation: glow 2s ease-in-out infinite alternate;
-            font-family: 'Orbitron', monospace;
-            display: inline-block;
-        }
-        .logo:visited,
-        .logo:active,
-        .logo:hover {
-            color: #00ff00 !important;
-        }
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
-            to   { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
-        }
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #00ff00 !important;
-            text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .footer-logo:visited,
-        .footer-logo:active,
-        .footer-logo:hover {
-            color: #00ff00 !important;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        .nav-links a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .nav-links a:hover {
-            text-shadow: 0 0 10px #00ff00;
-        }
-        /* Hamburger Menu */
-		.hamburger {
-  		  display: none;
-   		 flex-direction: column;
-   		 cursor: pointer;
-    		padding: 5px;
-    		position: fixed;   /* <--- changed from relative to fixed */
-   		 top: 20px;
-    		right: 130px;       /* <--- so it's left of Matrix: ON button */
-    		z-index: 2000;     /* <--- higher than matrix-toggle */
-		}
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: #00ff00;
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-        .mobile-menu {
-            display: none;
+        .rebrand-shell::before,
+        .rebrand-card::before {
+            content: "";
             position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            border-bottom: 2px solid #00ff00;
-        }
-        .mobile-menu.active {
-            display: block;
-        }
-        .mobile-menu ul {
-            list-style: none;
-            padding: 20px;
-        }
-        .mobile-menu li {
-            margin: 15px 0;
-        }
-        .mobile-menu a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 32%, transparent 70%, rgba(255, 255, 255, 0.04));
+            pointer-events: none;
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-        }
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        .hero .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
-        .hero .description {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-        .cta-button {
-            background: transparent;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px;
-        }
-        .cta-button:hover {
-            background: #00ff00;
-            color: #000;
-            box-shadow: 0 0 30px #00ff00;
-        }
-        .cta-button.primary {
-            background: #00ff00;
-            color: #000;
-        }
-        .cta-button.primary:hover {
-            background: transparent;
-            color: #00ff00;
-        }
-
-        /* Coming Soon Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        .modal-content {
-            background-color: #000;
-            margin: 15% auto;
-            padding: 30px;
-            border: 2px solid #00ff00;
-            width: 300px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-        }
-        .close {
-            color: #00ff00;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .close:hover {
-            text-shadow: 0 0 10px #00ff00;
-        }
-
-        /* Tokenomics Infographic */
-        .tokenomics {
-            padding: 80px 0;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .tokenomics-visual.single {
+        .rebrand-head {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0;
-        }
-        .token-supply {
-            text-align: center;
-        }
-        .supply-circle {
-            width: 300px;
-            height: 300px;
-            border: 3px solid #00ff00;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            position: relative;
-            animation: pulse 3s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.6); }
-        }
-        .supply-number {
-            font-size: 3rem;
-            font-weight: 900;
-            text-shadow: 0 0 20px #00ff00;
-        }
-        .supply-label {
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* Treasury Backing Visual */
-        .treasury {
-            padding: 80px 0;
-            background: rgba(0, 0, 0, 0.9);
-        }
-        .treasury-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .asset-box {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid #00ff00;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            min-width: 200px;
-            transition: all 0.3s ease;
-        }
-        .asset-box:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            transform: translateY(-5px);
-        }
-        .asset-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-             .arrow {
-    font-size: 2rem;
-    color: #00ff00;
-    animation: pulse 2s ease-in-out infinite;
-    background: transparent !important;  /* Add this line */
-    border: none !important;             /* Add this line */
-    box-shadow: none !important;         /* Add this line */
-    display: flex;                       /* Optional: Center vertically */
-    align-items: center;                 /* Optional: Center vertically */
-    justify-content: center;             /* Optional: Center horizontally */
-    width: auto;                         /* Optional: Remove fixed width if any */
-    height: auto;                        /* Optional: Remove fixed height if any */
-text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-}
-
-        /* Stats Section */
-        .stats {
-            padding: 80px 0;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .section-title {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 60px;
-            text-shadow: 0 0 20px #00ff00;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        .feature-card {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            padding: 30px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            transform: translateY(-5px);
-        }
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #00ff00;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        .step {
-            text-align: center;
-            padding: 30px;
-        }
-        .step-number {
-            background: #00ff00;
-            color: #000;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 0 auto 20px;
-        }
-        .step h3 {
-            margin-bottom: 18px;
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(0, 0, 0, 0.9);
-            border-top: 2px solid #00ff00;
-            padding: 60px 0 40px;
-        }
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        .footer-links {
-            list-style: none;
-        }
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        .footer-links a {
-            color: #00ff00;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            opacity: 0.8;
-        }
-        .footer-links a:hover {
-            opacity: 1;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        .social-links {
-            display: flex;
+            align-items: start;
+            justify-content: space-between;
             gap: 20px;
         }
-        .social-links a {
-            color: #00ff00;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .social-links a:hover {
-            text-shadow: 0 0 15px #00ff00;
-            transform: scale(1.2);
-        }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #00ff00;
-            opacity: 0.6;
+
+        .rebrand-head h2 {
+            font-size: clamp(2rem, 3.5vw, 3.4rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            max-width: 14ch;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero .subtitle { font-size: 1.2rem; }
-            .logo { font-size: 2rem; }
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .tokenomics-visual.single { flex-direction: column; }
-            .supply-circle { width: 250px; height: 250px; }
-            .supply-number { font-size: 2rem; }
-            .treasury-visual { flex-direction: column; }
-            .footer-content { grid-template-columns: 1fr; text-align: center; }
-            .social-links { justify-content: center; }
+        .rebrand-head p {
+            margin-top: 14px;
+            max-width: 72ch;
+            color: var(--muted);
+            line-height: 1.75;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .rebrand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 38px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 184, 106, 0.28);
+            background: rgba(255, 184, 106, 0.09);
+            color: var(--amber);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
-        ::-webkit-scrollbar-track {
-            background: #000;
+
+        .rebrand-pill::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 14px currentColor;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #00ff00;
-            border-radius: 5px;
+
+        .rebrand-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cc00;
+
+        .rebrand-card {
+            padding: 22px;
+            border: 1px solid rgba(140, 171, 201, 0.14);
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .rebrand-card span,
+        .system-status,
+        .system-links span {
+            display: block;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .rebrand-card h3 {
+            margin-top: 14px;
+            font-size: 1.2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .rebrand-card p {
+            margin-top: 12px;
+            color: var(--muted);
+            line-height: 1.72;
+        }
+
+        .hero {
+            min-height: calc(100vh - 84px);
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+            align-items: center;
+            gap: clamp(36px, 6vw, 80px);
+            padding: clamp(44px, 8vw, 88px) 0 84px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--cyan);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 44px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        .hero-copy h1 {
+            font-size: clamp(3.8rem, 7vw, 7.2rem);
+            line-height: 0.92;
+            max-width: 10.5ch;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-copy p.lede {
+            max-width: 64ch;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: clamp(1rem, 1.45vw, 1.18rem);
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 34px;
+        }
+
+        .button.primary {
+            color: #051018;
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            border-color: transparent;
+            font-weight: 700;
+        }
+
+        .button.secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
+        }
+
+        .hero-signals {
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .hero-signals div {
+            min-width: 170px;
+            padding: 14px 16px;
+            border: 1px solid rgba(140, 171, 201, 0.14);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-signals span,
+        .stat-label,
+        .metric-card span,
+        .system-meta,
+        .timeline-step,
+        .footer-kicker,
+        .footer-note {
+            display: block;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero-signals strong {
+            display: block;
+            margin-top: 9px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-stage {
+            display: grid;
+            gap: 20px;
+        }
+
+        .orbital-shell,
+        .mission-panel,
+        .principle-card,
+        .system-card,
+        .engine-card,
+        .timeline-card,
+        .revival-panel,
+        .metric-card,
+        .contact-shell,
+        .footer-block {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(140, 171, 201, 0.16);
+            border-radius: var(--radius-xl);
+            background: linear-gradient(180deg, rgba(16, 23, 36, 0.84), rgba(8, 13, 24, 0.92));
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .orbital-shell {
+            min-height: 560px;
+            padding: 28px;
+            display: grid;
+            place-items: center;
+        }
+
+        .orbital-shell::before,
+        .mission-panel::before,
+        .system-card::before,
+        .engine-card::before,
+        .contact-shell::before,
+        .footer-block::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.04));
+            pointer-events: none;
+        }
+
+        .orbital-core {
+            position: relative;
+            width: min(100%, 520px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+
+        .orbital-core::before {
+            content: "";
+            position: absolute;
+            inset: 14%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(120, 238, 255, 0.16), transparent 65%);
+            filter: blur(14px);
+        }
+
+        .halo,
+        .crosshair,
+        .satellite,
+        .core-tile {
+            position: absolute;
+        }
+
+        .halo {
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(120, 238, 255, 0.12);
+            animation: spin 18s linear infinite;
+        }
+
+        .halo.halo-2 {
+            inset: 9%;
+            animation-duration: 22s;
+            animation-direction: reverse;
+            border-color: rgba(203, 255, 118, 0.12);
+        }
+
+        .halo.halo-3 {
+            inset: 19%;
+            animation-duration: 12s;
+            border-color: rgba(255, 184, 106, 0.14);
+        }
+
+        .crosshair {
+            inset: 11%;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: "";
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+        }
+
+        .crosshair::before {
+            top: 50%;
+            left: -10%;
+            right: -10%;
+            height: 1px;
+        }
+
+        .crosshair::after {
+            left: 50%;
+            top: -10%;
+            bottom: -10%;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+        }
+
+        .satellite {
+            min-width: 144px;
+            padding: 12px 14px;
+            border: 1px solid rgba(140, 171, 201, 0.18);
+            border-radius: 18px;
+            background: rgba(6, 10, 18, 0.7);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .satellite span {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-size: 0.68rem;
+        }
+
+        .sat-a {
+            top: 8%;
+            right: 4%;
+            color: var(--cyan);
+            animation: drift 7s ease-in-out infinite;
+        }
+
+        .sat-b {
+            bottom: 14%;
+            left: 0;
+            color: var(--lime);
+            animation: drift 9s ease-in-out infinite reverse;
+        }
+
+        .sat-c {
+            top: 54%;
+            right: -2%;
+            color: var(--amber);
+            animation: drift 10s ease-in-out infinite;
+        }
+
+        .core-tile {
+            inset: 31%;
+            border-radius: 28px;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(13, 20, 32, 0.95), rgba(8, 12, 21, 0.92));
+            border: 1px solid rgba(140, 171, 201, 0.16);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px rgba(0, 0, 0, 0.36);
+        }
+
+        .core-tile p {
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .core-tile h2 {
+            font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+            line-height: 0.96;
+            letter-spacing: -0.04em;
+            max-width: 8ch;
+        }
+
+        .core-tile strong {
+            color: var(--cyan);
+            font-size: 0.96rem;
+        }
+
+        .mission-panel {
+            padding: 22px 22px 20px;
+        }
+
+        .panel-head {
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .panel-badge {
+            padding: 8px 10px;
+            border-radius: 999px;
+            background: rgba(203, 255, 118, 0.12);
+            border: 1px solid rgba(203, 255, 118, 0.26);
+            color: var(--lime);
+        }
+
+        .console-row,
+        .console-feed {
+            border: 1px solid rgba(140, 171, 201, 0.14);
+            border-radius: 18px;
+            background: rgba(4, 8, 16, 0.64);
+        }
+
+        .console-row {
+            display: grid;
+            grid-template-columns: 96px minmax(0, 1fr);
+            gap: 16px;
+            padding: 14px 16px;
+        }
+
+        .console-row + .console-row {
+            margin-top: 12px;
+        }
+
+        .console-label {
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .console-value {
+            font-size: 0.96rem;
+            font-weight: 500;
+        }
+
+        .console-feed {
+            margin-top: 14px;
+            padding: 16px;
+            color: var(--cyan);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.86rem;
+            line-height: 1.7;
+            min-height: 88px;
+        }
+
+        .console-feed::before {
+            content: "LIVE FEED";
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+        }
+
+        .section {
+            padding: 96px 0 0;
+        }
+
+        .section-heading {
+            max-width: 820px;
+            margin-bottom: 34px;
+        }
+
+        .section-heading.narrow {
+            max-width: 680px;
+        }
+
+        .section-heading h2,
+        .revival-copy h2,
+        .contact-copy h2,
+        .footer-block h2 {
+            font-size: clamp(2.4rem, 4.2vw, 4.6rem);
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+        }
+
+        .section-heading p:last-child,
+        .contact-copy p,
+        .revival-copy p {
+            margin-top: 18px;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 1.02rem;
+            max-width: 66ch;
+        }
+
+        .principles-grid,
+        .systems-grid,
+        .engine-grid,
+        .timeline-grid,
+        .revival-grid,
+        .metrics-grid,
+        .footer-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .principles-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .principle-card,
+        .engine-card,
+        .timeline-card,
+        .metric-card {
+            padding: 24px;
+        }
+
+        .principle-card h3,
+        .system-card h3,
+        .engine-card h3,
+        .timeline-card h3,
+        .metric-card strong,
+        .footer-block h3 {
+            font-size: 1.36rem;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        .principle-card p,
+        .engine-card p,
+        .timeline-card p,
+        .metric-card p,
+        .system-card p,
+        .footer-block p {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .card-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            background: rgba(120, 238, 255, 0.08);
+            border: 1px solid rgba(120, 238, 255, 0.22);
+            color: var(--cyan);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .systems-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .system-card {
+            padding: 30px;
+        }
+
+        .system-card.system-neomeme {
+            border-color: rgba(255, 125, 147, 0.26);
+            background: linear-gradient(180deg, rgba(26, 14, 24, 0.9), rgba(15, 11, 22, 0.96));
+        }
+
+        .system-card.system-agentpay {
+            border-color: rgba(120, 238, 255, 0.24);
+            background: linear-gradient(180deg, rgba(12, 22, 27, 0.92), rgba(9, 16, 22, 0.96));
+        }
+
+        .system-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .system-badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .system-card ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .system-status {
+            margin-top: 12px;
+            color: var(--cyan);
+        }
+
+        .system-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .system-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(140, 171, 201, 0.18);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 0.92rem;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .system-links a:hover {
+            transform: translateY(-2px);
+            border-color: rgba(120, 238, 255, 0.3);
+            background: rgba(120, 238, 255, 0.08);
+        }
+
+        .system-card li {
+            position: relative;
+            padding-left: 20px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .system-card li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.72em;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--lime));
+            box-shadow: 0 0 16px rgba(120, 238, 255, 0.22);
+        }
+
+        .system-meta {
+            margin-top: 18px;
+        }
+
+        .engine-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .timeline-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .timeline-card {
+            min-height: 250px;
+        }
+
+        .timeline-step {
+            color: var(--cyan);
+            margin-bottom: 14px;
+        }
+
+        .revival-grid {
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            align-items: stretch;
+            gap: 18px;
+        }
+
+        .revival-panel {
+            padding: 30px;
+        }
+
+        .metrics-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .metric-card strong {
+            display: block;
+            margin-top: 12px;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+        }
+
+        .metric-card p {
+            margin-top: 8px;
+        }
+
+        .marquee {
+            margin-top: 90px;
+            overflow: hidden;
+            border-top: 1px solid rgba(140, 171, 201, 0.14);
+            border-bottom: 1px solid rgba(140, 171, 201, 0.14);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .marquee-track {
+            gap: 36px;
+            width: max-content;
+            padding: 16px 0;
+            animation: marquee 30s linear infinite;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.76rem;
+        }
+
+        .marquee-track span {
+            color: var(--text);
+        }
+
+        .contact {
+            padding-bottom: 110px;
+        }
+
+        .contact-shell {
+            padding: 32px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+            gap: 24px;
+            align-items: end;
+        }
+
+        .contact-copy h2 {
+            max-width: 10ch;
+        }
+
+        .contact-actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(140, 171, 201, 0.16);
+            background: rgba(255, 255, 255, 0.03);
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(120, 238, 255, 0.28);
+            background: rgba(120, 238, 255, 0.06);
+        }
+
+        .contact-link span {
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .contact-link strong {
+            display: block;
+            margin-top: 6px;
+        }
+
+        .contact-link em {
+            color: var(--cyan);
+            font-style: normal;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            padding: 0 0 48px;
+        }
+
+        .footer-inner {
+            border-top: 1px solid rgba(140, 171, 201, 0.14);
+            padding-top: 32px;
+        }
+
+        .footer-grid {
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            align-items: start;
+        }
+
+        .footer-block {
+            padding: 24px;
+        }
+
+        .footer-links,
+        .footer-social {
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .footer-links a,
+        .footer-social a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(140, 171, 201, 0.16);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover,
+        .footer-social a:hover {
+            color: var(--text);
+            border-color: rgba(120, 238, 255, 0.26);
+        }
+
+        .footer-note {
+            margin-top: 18px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 1180px) {
+            .hero,
+            .revival-grid,
+            .contact-shell,
+            .footer-grid,
+            .engine-grid,
+            .timeline-grid,
+            .rebrand-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 40px;
+            }
+
+            .principles-grid,
+            .systems-grid,
+            .metrics-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 960px) {
+            .topbar {
+                padding-inline: 18px;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .topbar {
+                padding-inline: 18px;
+            }
+
+            .rebrand-head {
+                flex-direction: column;
+            }
+
+            .principles-grid,
+            .systems-grid,
+            .engine-grid,
+            .timeline-grid,
+            .metrics-grid,
+            .contact-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy h1,
+            .section-heading h2,
+            .revival-copy h2,
+            .contact-copy h2 {
+                max-width: none;
+            }
+
+            .orbital-shell {
+                min-height: 480px;
+                padding: 16px;
+            }
+
+            .orbital-core {
+                width: min(100%, 420px);
+            }
+
+            .satellite {
+                min-width: 112px;
+                font-size: 0.7rem;
+                letter-spacing: 0.08em;
+            }
+
+            .core-tile {
+                inset: 28%;
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero,
+            .section,
+            .contact,
+            .footer,
+            .rebrand-callout {
+                width: min(var(--max-width), calc(100% - 24px));
+            }
+
+            .brand-mark {
+                width: 50px;
+                height: 50px;
+            }
+
+            .hero-copy h1 {
+                font-size: 3rem;
+            }
+
+            .hero-signals div,
+            .contact-link,
+            .button {
+                width: 100%;
+            }
+
+            .hero-actions {
+                display: grid;
+            }
+
+            .orbital-shell {
+                min-height: 420px;
+            }
+
+            .sat-a {
+                right: -2%;
+            }
+
+            .sat-b {
+                left: -2%;
+            }
+
+            .sat-c {
+                right: -6%;
+            }
+
+            .core-tile {
+                inset: 26%;
+            }
         }
     </style>
 </head>
-<body id="top">
 <body>
-    <canvas id="matrixCanvas"></canvas>
-    <button class="matrix-toggle" id="matrixToggle">MATRIX: ON</button>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <div class="page-glow" aria-hidden="true"></div>
 
-    <header class="header">
-        <nav class="nav container">
-            <a href="#top" class="logo">NEOIGNITE</a>
-            <ul class="nav-links">
-                <li><a href="#tokenomics">Tokenomics</a></li>
-                <li><a href="#treasury">Treasury</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#footer">Links</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <header class="topbar" data-elevated="false">
+        <a class="brand" href="#top" aria-label="NeoIgnite home">
+            <div class="brand-mark">
+                <img src="assets/Neoignite-logo.png" alt="NeoIgnite logo">
             </div>
-            <div class="mobile-menu" id="mobileMenu">
-                <ul>
-                    <li><a href="#tokenomics">Tokenomics</a></li>
-                    <li><a href="#treasury">Treasury</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#footer">Links</a></li>
+            <div class="brand-copy">
+                <strong>NeoIgnite</strong>
+                <span>Labs studio</span>
+            </div>
+        </a>
+
+        <div class="nav-shell">
+            <nav aria-label="Primary navigation">
+                <ul class="nav-links">
+                    <li><a href="#rebrand">Rebrand</a></li>
+                    <li><a href="#systems">Systems</a></li>
+                    <li><a href="#studio">Studio</a></li>
+                    <li><a href="#signals">Signals</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+            <a class="nav-cta" href="#contact">Build with NeoIgnite</a>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>NIGN TOKEN</h1>
-                <p class="subtitle">Treasury-Backed · AMM-Free</p>
-                <p class="description">
-                    The first transparent, reserve-anchored NEP-17 token with built-in buy/sell functionality. 
-                    No external AMMs required. Every token backed by real on-chain assets.
-                </p>
-<p class="subtitle" style="display:flex;align-items:center;justify-content:center;gap:10px;">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" width="28" height="14" aria-label="Glossy red pill" role="img"
-       style="filter: drop-shadow(0 0 6px #ff1a1a) drop-shadow(0 0 12px #ff0000); animation: redGlow 2s ease-in-out infinite alternate;">
-    <defs>
-      <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-        <stop offset="0" stop-color="#ff5f56"/>
-        <stop offset="1" stop-color="#c62828"/>
-      </linearGradient>
-      <linearGradient id="gloss" x1="0" x2="1" y1="0" y2="0">
-        <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
-        <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.45"/>
-        <stop offset="0.9" stop-color="#ffffff" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <ul>
+            <li><a href="#rebrand">Rebrand</a></li>
+            <li><a href="#systems">Systems</a></li>
+            <li><a href="#studio">Studio</a></li>
+            <li><a href="#signals">Signals</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- main capsule -->
-    <rect x="2" y="4" width="60" height="24" rx="12" ry="12" fill="url(#g)" stroke="#8b0000" stroke-opacity="0.25"/>
-
-    <!-- glossy highlight -->
-    <path d="M8 8 C22 2, 42 2, 56 8 L56 6 C42 0, 22 0, 8 6 Z" fill="url(#gloss)" opacity="0.9"/>
-
-    <!-- thin inner rim for depth -->
-    <rect x="6" y="7" width="48" height="18" rx="9" ry="9" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
-  </svg>
-  Vision
-</p>
-
-<style>
-@keyframes redGlow {
-  from { filter: drop-shadow(0 0 6px #ff1a1a) drop-shadow(0 0 12px #ff0000); }
-  to   { filter: drop-shadow(0 0 10px #ff3333) drop-shadow(0 0 20px #ff0000); }
-}
-</style>
-<p class="description">
-NeoIgnite aims to redefine token utility on the Neo blockchain by combining dynamic treasury management, automated DeFi integration, and transparent governance. 
-	It's not just a token — it's a self-sustaining financial engine designed for long-term value creation.</p>
-                <a href="#" class="cta-button primary" data-action="buy">BUY NIGN</a>
-                <a href="#" class="cta-button" data-action="treasury">VIEW TREASURY</a>
+    <main id="top">
+        <section class="rebrand-callout" id="rebrand">
+            <div class="rebrand-shell">
+                <div class="rebrand-head">
+                    <div>
+                        <p class="eyebrow">Rebrand note</p>
+                        <h2>NeoIgnite started as one thesis. It had to evolve when bNEO disappeared.</h2>
+                        <p>The original NeoIgnite direction was built around a treasury-backed, bNEO-linked token concept. Once bNEO stopped being a reliable long-term base, that route no longer made sense to keep forcing. Rather than dragging a broken structure forward, NeoIgnite was reworked into a Labs identity focused on shipping real Neo-native products.</p>
+                    </div>
+                    <div class="rebrand-pill">From protocol thesis to Labs studio</div>
+                </div>
+                <div class="rebrand-grid">
+                    <article class="rebrand-card">
+                        <span>Original NeoIgnite</span>
+                        <h3>A reserve-backed product thesis.</h3>
+                        <p>The first NeoIgnite concept centered on a treasury-backed design with bNEO as a key part of the structure and long-term economic logic.</p>
+                    </article>
+                    <article class="rebrand-card">
+                        <span>Why it stopped</span>
+                        <h3>bNEO falling away broke the foundation.</h3>
+                        <p>When bNEO stopped being a dependable primitive, the original path lost the base it depended on. That made continuing the old NeoIgnite version the wrong move.</p>
+                    </article>
+                    <article class="rebrand-card">
+                        <span>NeoIgnite now</span>
+                        <h3>A Labs brand shipping on Neo.</h3>
+                        <p>NeoIgnite is now the umbrella Labs identity behind launches like NeoMeme and AgentPay, built to keep creating new Neo-native systems instead of staying locked to one failed thesis.</p>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <section class="tokenomics" id="tokenomics">
-            <div class="container">
-                <h2 class="section-title">TOKENOMICS</h2>
-                <div class="tokenomics-visual single">
-                    <div class="token-supply">
-                        <div class="supply-circle">
-                            <div class="supply-number">100B</div>
-                            <div class="supply-label">TOTAL SUPPLY</div>
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Neo-native labs studio</p>
+                <h1>We launch the products that make Neo feel alive again.</h1>
+                <p class="lede">NeoIgnite is the lab behind projects like NeoMeme and AgentPay. We build sharp new systems on Neo, turn ideas into live products, and help push the chain back into relevance with surfaces people actually notice.</p>
+                <div class="hero-actions">
+                    <a class="button primary" href="#systems">See launched systems</a>
+                    <a class="button secondary" href="#thesis">Read the NeoIgnite thesis</a>
+                </div>
+                <div class="hero-signals" aria-label="NeoIgnite status signals">
+                    <div>
+                        <span>Mode</span>
+                        <strong>Labs active</strong>
+                    </div>
+                    <div>
+                        <span>Network</span>
+                        <strong>Neo N3 native</strong>
+                    </div>
+                    <div>
+                        <span>Systems</span>
+                        <strong>NeoMeme + AgentPay TestNet</strong>
+                    </div>
+                    <div>
+                        <span>Focus</span>
+                        <strong>Consumer + infra</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-stage">
+                <div class="orbital-shell">
+                    <div class="orbital-core">
+                        <div class="halo halo-1"></div>
+                        <div class="halo halo-2"></div>
+                        <div class="halo halo-3"></div>
+                        <div class="crosshair"></div>
+                        <div class="satellite sat-a"><span>Launched on TestNet</span>NeoMeme</div>
+                        <div class="satellite sat-b"><span>Launched on TestNet</span>AgentPay</div>
+                        <div class="satellite sat-c"><span>Next</span>New surfaces</div>
+                        <div class="core-tile">
+                            <p>NeoIgnite</p>
+                            <h2>Build. Launch. Amplify.</h2>
+                            <strong>Neo products with cultural gravity</strong>
                         </div>
-                        <h3>Fixed Supply · 8 Decimals · NEP-17</h3>
+                    </div>
+                </div>
+
+                <aside class="mission-panel" aria-label="Mission control">
+                    <div class="panel-head">
+                        <span>Mission control</span>
+                        <span class="panel-badge">Online</span>
+                    </div>
+                    <div class="console-row">
+                        <span class="console-label">Current</span>
+                        <span class="console-value">Launching new Neo-native products through one coherent lab identity.</span>
+                    </div>
+                    <div class="console-row">
+                        <span class="console-label">Thesis</span>
+                        <span class="console-value">Neo gets bigger again when ambitious systems ship, not when old narratives get repeated.</span>
+                    </div>
+                    <div class="console-row">
+                        <span class="console-label">Vector</span>
+                        <span class="console-value">Design sharp products, stress-test primitives, and make Neo impossible to ignore.</span>
+                    </div>
+                    <div class="console-feed" id="consoleFeed">Boot sequence ready for a new Neo cycle.</div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" id="thesis">
+            <div class="section-heading">
+                <p class="eyebrow">The thesis</p>
+                <h2>NeoIgnite is not one product. It is the lab that keeps inventing on Neo.</h2>
+                <p>Think of NeoIgnite as a Labs team: a studio that researches, builds, launches, and sharpens new products on Neo. We are here to experiment faster, make stronger product surfaces, and help Neo grow through things that feel current, useful, and culturally alive.</p>
+            </div>
+
+            <div class="principles-grid">
+                <article class="principle-card">
+                    <span class="card-index">01</span>
+                    <h3>Neo needs fresh systems, not recycled narratives.</h3>
+                    <p>NeoIgnite exists to ship new things: new mechanics, new products, new consumer surfaces, and new reasons for builders to care about Neo again.</p>
+                </article>
+                <article class="principle-card">
+                    <span class="card-index">02</span>
+                    <h3>Labs thinking beats one-off launches.</h3>
+                    <p>We treat every launch as part of a broader studio engine. One system informs the next. One product sharpens the lab. One success expands what Neo can support.</p>
+                </article>
+                <article class="principle-card">
+                    <span class="card-index">03</span>
+                    <h3>Neo gets bigger when the products feel ambitious.</h3>
+                    <p>We want Neo to look fast, current, technical, and alive. That means brand quality, product quality, and on-chain quality all have to move together.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="systems">
+            <div class="section-heading narrow">
+                <p class="eyebrow">Launched through NeoIgnite</p>
+                <h2>Two live TestNet systems. One lab identity. More to come.</h2>
+                <p>NeoIgnite already has launched systems on Neo TestNet. Each one pushes a different edge of the chain, but together they show what the lab is really about: shipping new categories, not waiting for permission.</p>
+            </div>
+
+            <div class="systems-grid">
+                <article class="system-card system-neomeme">
+                    <div class="system-badge">Launch system · TestNet</div>
+                    <h3>NeoMeme</h3>
+                    <span class="system-status">Currently live on Neo TestNet</span>
+                    <p>NeoMeme is NeoIgnite pushing on the consumer side of Neo: launch mechanics, culture, market energy, token discovery, and the kind of surface that can make the chain feel socially alive again.</p>
+                    <ul>
+                        <li>Meme launchpad energy built specifically for Neo.</li>
+                        <li>Consumer-facing mechanics designed to create momentum, not just contracts.</li>
+                        <li>A signal that Neo can host products with real speed, personality, and cultural gravity.</li>
+                    </ul>
+                    <div class="system-links">
+                        <a href="https://neomeme-pi.vercel.app/" target="_blank" rel="noopener">Open NeoMeme TestNet site</a>
+                    </div>
+                    <span class="system-meta">Neo-native launch surface · consumer energy</span>
+                </article>
+
+                <article class="system-card system-agentpay">
+                    <div class="system-badge">Infrastructure system · TestNet</div>
+                    <h3>AgentPay</h3>
+                    <span class="system-status">Currently live on Neo TestNet</span>
+                    <p>AgentPay is NeoIgnite pushing on the infrastructure side: machine-native payment rails, agent checkout, usage accounting, and a strong thesis for how AI and Neo can intersect in practical products.</p>
+                    <ul>
+                        <li>Built to make autonomous or semi-autonomous payments feel native on Neo.</li>
+                        <li>Turns agent activity into a product surface instead of a vague future promise.</li>
+                        <li>Shows that Neo can host new economic flows for the next generation of apps.</li>
+                    </ul>
+                    <div class="system-links">
+                        <a href="https://agent-pay-site.vercel.app/" target="_blank" rel="noopener">Open AgentPay TestNet site</a>
+                    </div>
+                    <span class="system-meta">Agent commerce rail · protocol infrastructure</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="studio">
+            <div class="section-heading">
+                <p class="eyebrow">Lab engine</p>
+                <h2>What NeoIgnite actually does.</h2>
+                <p>NeoIgnite is part product studio, part protocol lab, part signal amplifier. We look for the places where Neo can feel more useful, more culturally magnetic, and more technically relevant, then we build those surfaces hard.</p>
+            </div>
+
+            <div class="engine-grid">
+                <article class="engine-card">
+                    <span class="card-index">A1</span>
+                    <h3>Product architecture</h3>
+                    <p>We shape ideas into coherent products that feel intentional from contract logic to user narrative.</p>
+                </article>
+                <article class="engine-card">
+                    <span class="card-index">B2</span>
+                    <h3>Protocol-native systems</h3>
+                    <p>We build things that use Neo as a real substrate, not just a badge on top of generic app logic.</p>
+                </article>
+                <article class="engine-card">
+                    <span class="card-index">C3</span>
+                    <h3>Brand and launch surfaces</h3>
+                    <p>We make products look and feel bigger, sharper, and more alive so the chain itself starts to feel bigger too.</p>
+                </article>
+                <article class="engine-card">
+                    <span class="card-index">D4</span>
+                    <h3>Neo ecosystem ignition</h3>
+                    <p>Every system is part of a broader effort to help Neo regain ambition, attention, and product momentum.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="signals">
+            <div class="section-heading narrow">
+                <p class="eyebrow">Ignition loop</p>
+                <h2>How the lab pushes Neo forward.</h2>
+            </div>
+
+            <div class="timeline-grid">
+                <article class="timeline-card">
+                    <span class="timeline-step">01 - Observe</span>
+                    <h3>Find the surface Neo still needs.</h3>
+                    <p>We look for missing categories, ignored user flows, and spaces where Neo should have a stronger product answer.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">02 - Architect</span>
+                    <h3>Turn the thesis into a sharp system.</h3>
+                    <p>From contract design to launch narrative, we define a product that feels crisp, modern, and worth shipping.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">03 - Launch</span>
+                    <h3>Ship something the ecosystem notices.</h3>
+                    <p>We care about the live product, not just the whitepaper. NeoIgnite exists to put real systems in front of real users.</p>
+                </article>
+                <article class="timeline-card">
+                    <span class="timeline-step">04 - Compound</span>
+                    <h3>Use each system to strengthen the next one.</h3>
+                    <p>Knowledge, tooling, distribution, and brand gravity compound at the lab level, not just the project level.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section revival">
+            <div class="revival-grid">
+                <div class="revival-panel revival-copy">
+                    <p class="eyebrow">Why this lab exists</p>
+                    <h2>Neo needs more than optimism. It needs products with force.</h2>
+                    <p>NeoIgnite is here to help Neo become big again by building things that feel unmistakably new. Not clone projects. Not weak wrappers. Real Neo-native systems with design discipline, launch power, and enough ambition to move the ecosystem forward.</p>
+                </div>
+
+                <div class="revival-panel">
+                    <div class="metrics-grid">
+                        <article class="metric-card">
+                            <span class="stat-label">Live systems</span>
+                            <strong>02</strong>
+                            <p>NeoMeme and AgentPay already show the lab shipping on two different fronts.</p>
+                        </article>
+                        <article class="metric-card">
+                            <span class="stat-label">Studio model</span>
+                            <strong>Labs</strong>
+                            <p>One team, multiple launches, one expanding Neo-native product engine.</p>
+                        </article>
+                        <article class="metric-card">
+                            <span class="stat-label">Primary mission</span>
+                            <strong>Make Neo visible</strong>
+                            <p>New systems are the fastest way to make the chain feel current and worth watching again.</p>
+                        </article>
+                        <article class="metric-card">
+                            <span class="stat-label">Operating style</span>
+                            <strong>Sharp + public</strong>
+                            <p>We want products that can stand technically and visually against anything else in the market.</p>
+                        </article>
                     </div>
                 </div>
             </div>
         </section>
 
-  <section class="treasury" id="treasury">
-    <div class="container">
-        <h2 class="section-title">TREASURY BACKING</h2>
-        <div class="treasury-visual">
-            <div class="asset-box">
-                <div class="asset-icon" style="height:56px;">
-                    <img src="assets/GAS_512_512.svg" alt="GAS Logo" style="height:60px;width:auto;display:inline-block;" />
-                </div>
-                <h3>GAS</h3>
-                <p>Primary treasury asset for immediate liquidity</p>
-            </div>
-            <div class="arrow">+</div>
-            <div class="asset-box">
-                <div class="asset-icon" style="height:56px;">
-                    <img src="assets/NEO_512_512.svg" alt="NEO Logo" style="height:60px;width:auto;display:inline-block;" />
-                </div>
-                <h3>NEO</h3>
-                <p>Strategic reserve </p>
-            </div>
-            <div class="arrow">=</div>
-            <div class="asset-box">
-                <div class="asset-icon" style="height:75px;">
-                    <img src="assets/logo.png" alt="NIGN Logo" style="height:100px;width:auto;display:inline-block;filter:drop-shadow(0 0 10px #00ff00);" />
-                </div>
-                <h3>NIGN VALUE</h3>
-                <p>Real-time treasury backing visualization</p>
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>NeoIgnite Labs</span>
+                <span>NeoMeme</span>
+                <span>AgentPay</span>
+                <span>Neo-native systems</span>
+                <span>Consumer surfaces</span>
+                <span>Agent payments</span>
+                <span>Product architecture</span>
+                <span>Chain revival</span>
+                <span>NeoIgnite Labs</span>
+                <span>NeoMeme</span>
+                <span>AgentPay</span>
+                <span>Neo-native systems</span>
+                <span>Consumer surfaces</span>
+                <span>Agent payments</span>
+                <span>Product architecture</span>
+                <span>Chain revival</span>
             </div>
         </div>
-    </div>
-</section>
 
-        <section class="stats" id="stats">
-            <div class="container">
-                <h2 class="section-title">LIVE STATS</h2>
-                <div style="text-align:center; padding: 80px 0 40px;">
-                    <span class="stat-number" style="font-size: 2rem; font-weight: 400; text-shadow: 0 0 20px #00ff00; animation: glow 2s ease-in-out infinite alternate; color:#00ff00;">
-                        Coming soon Q1 '26, currently on Testnet
-                    </span>
+        <section class="section contact" id="contact">
+            <div class="contact-shell">
+                <div class="contact-copy">
+                    <p class="eyebrow">Build with the lab</p>
+                    <h2>Bring the next Neo-native system to NeoIgnite.</h2>
+                    <p>If you want to collaborate, launch something through the lab, or just stay close to what NeoIgnite is building, reach out. We are here to design, ship, and amplify the next generation of Neo products.</p>
                 </div>
-            </div>
-        </section>
-
-        <section class="features" id="features">
-            <div class="container">
-                <h2 class="section-title">KEY FEATURES</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h3>Treasury-Backed</h3>
-                        <p>Every token is backed by real assets in the treasury, ensuring stability and value.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>AMM-Free</h3>
-                        <p>Built-in buy/sell functionality without relying on external automated market makers.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Transparent</h3>
-                        <p>All treasury operations and fees are on-chain and verifiable by anyone.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="how-it-works" id="how-it-works">
-            <div class="container">
-                <h2 class="section-title">HOW IT WORKS</h2>
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3 style="margin-bottom:18px;">Buy NIGN</h3>
-                        <p>
-                            Purchase NIGN tokens directly through the built-in mechanism.<br>
-                            Send GAS to the contract, receive NIGN.
-                        </p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3 style="margin-bottom:18px;">Treasury/DeFi Growth</h3>
-                        <p>
-                            Fees contribute to treasury assets and DeFi protocol, backing token value.
-                        </p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3 style="margin-bottom:18px;">Sell NIGN</h3>
-                        <p>
-                            Sell tokens with instant liquidity from treasury reserves.<br>
-                            Send NIGN to the contract, receive GAS.
-                        </p>
-                    </div>
+                <div class="contact-actions">
+                    <a class="contact-link" href="#rebrand">
+                        <div>
+                            <span>Rebrand</span>
+                            <strong>Why NeoIgnite changed direction</strong>
+                        </div>
+                        <em>-></em>
+                    </a>
+                    <a class="contact-link" href="https://x.com/Neo__Ignite" target="_blank" rel="noopener">
+                        <div>
+                            <span>X</span>
+                            <strong>@Neo__Ignite</strong>
+                        </div>
+                        <em>-></em>
+                    </a>
+                    <a class="contact-link" href="https://discord.gg/KKw5QesYbX" target="_blank" rel="noopener">
+                        <div>
+                            <span>Discord</span>
+                            <strong>Join the NeoIgnite room</strong>
+                        </div>
+                        <em>-></em>
+                    </a>
+                    <a class="contact-link" href="mailto:support@neoignite.com">
+                        <div>
+                            <span>Email</span>
+                            <strong>support@neoignite.com</strong>
+                        </div>
+                        <em>-></em>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer" id="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <a href="#top" class="footer-logo">NEOIGNITE</a>
-                    <ul class="footer-links">
-                        <li><a href="#tokenomics">Tokenomics</a></li>
-                        <li><a href="#treasury">Treasury</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>RESOURCES</h3>
-                    <ul class="footer-links">
-                        <li>
-                            <a href="#" data-action="whitepaper">Whitepaper</a>
-                            <span style="font-size:0.8em; color:#00ff00; opacity:0.7; margin-left:9px;"></span>
-                        </li>
-                        <li>
-                            <a href="#" data-action="docs">Documentation</a>
-                            <span style="font-size:0.8em; color:#00ff00; opacity:0.7; margin-left:9px;"></span>
-                        </li>
-                        <li>
-                            <a href="https://github.com/NeoIgnite/NeoIgnite-site" target="_blank" rel="noopener">GitHub</a>
-                            <span style="font-size:0.8em; color:#00ff00; opacity:0.7; margin-left:9px;"></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>COMMUNITY</h3>
-                    <div class="social-links">
-                        <a href="https://x.com/Neo__Ignite" target="_blank" aria-label="X">
-                            <svg width="28" height="28" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
-                                <path d="M1199.84 59.24L779.13 629.67L1176.44 1167.72H969.41L646.13 726.53L273.07 1227H0.159912L444.88 627.97L59.2399 59.24H270.29L563.67 470.96L916.72 0H1199.84ZM853.54 1057.05H932.57L346.83 170.1H263.17L853.54 1057.05Z" fill="#00ff00"/>
-                            </svg>
-                        </a>
-                        <a href="https://discord.gg/KKw5QesYbX" target="_blank" aria-label="Discord">
-                            <svg width="28" height="28" viewBox="0 0 245 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
-                                <g>
-                                    <path d="M104.4 104.4c-5.7 0-10.3 4.7-10.3 10.4 0 5.7 4.6 10.4 10.3 10.4 5.7 0 10.3-4.7 10.3-10.4 0-5.8-4.6-10.4-10.3-10.4zm36.2 0c-5.7 0-10.3 4.7-10.3 10.4 0 5.7 4.6 10.4 10.3 10.4 5.7 0 10.3-4.7 10.3-10.4 0-5.8-4.6-10.4-10.3-10.4z" fill="#00ff00"/>
-                                    <path d="M222.6 0H22.4C10 0 0 10 0 22.4v195.1C0 229.9 10 240 22.4 240h178.1l-8.4-29.8 20.3 18.9 19.2 17.5V22.4C245 10 235 0 222.6 0zm-68.3 191.2s-6.4-7.6-11.7-14.3c23.1-6.6 31.8-21.1 31.8-21.1-7.2 4.7-14 8-20.2 10.3-8.8 3.7-17.2 6.1-25.4 5.9-6.7-.1-12.9-1.3-18.4-3.2-4-1.5-8.2-3.2-12.5-5.4-.5-.2-1-.5-1.5-.7-.3-.2-.5-.3-.8-.5-3.6-2-5.6-3.4-5.6-3.4s8.4 14.1 30.7 21.1c-5.2 6.7-11.8 14.5-11.8 14.5-38.9-1.2-53.7-26.8-53.7-26.8 0-56.9 25.4-103 25.4-103 25.4-19.2 49.4-18.7 49.4-18.7l1.8.2c-31.7 9.1-46.3 22.8-46.3 22.8s3.9-2.1 10.4-5c18.9-8.3 33.8-10.5 39.9-11 1-.1 2-.2 3-.2 10.8-1.5 23-1.8 35.7.1 16.8 2 34.7 7.1 53.2 17.5 0 0-13.9-13.2-44-22.3l2.5-.3s24-0.5 49.4 18.7c0 0 25.4 46.1 25.4 103 0 0-14.9 25.6-53.8 26.8z" fill="#00ff00"/>
-                                </g>
-                            </svg>
-                        </a>
-                        <a href="mailto:support@neoignite.com" target="_blank" aria-label="Mail">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="2" y="4" width="20" height="16" rx="3" stroke="#00ff00" stroke-width="2" fill="none"/>
-                                <path d="M3 6l9 7 9-7" stroke="#00ff00" stroke-width="2" fill="none"/>
-                            </svg>
-                        </a>
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-block">
+                    <span class="footer-kicker">NeoIgnite Labs</span>
+                    <h2>Launching what the next Neo cycle should feel like.</h2>
+                    <p>NeoIgnite is a Neo-native Labs team focused on building new products, pushing new ideas, and helping Neo become a bigger story again through sharp execution.</p>
+                    <div class="footer-links">
+                        <a href="#thesis">Thesis</a>
+                        <a href="#systems">Systems</a>
+                        <a href="#studio">Studio</a>
+                        <a href="#contact">Contact</a>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 NeoIgnite. All rights reserved.</p>
+                <div class="footer-block">
+                    <span class="footer-kicker">Status</span>
+                    <h3>Lab online. More systems loading.</h3>
+                    <p>NeoIgnite exists to keep building on Neo until the chain feels larger, faster, and more culturally important than it does today.</p>
+                    <div class="footer-social">
+                        <a href="#rebrand">Rebrand</a>
+                        <a href="https://x.com/Neo__Ignite" target="_blank" rel="noopener">X</a>
+                        <a href="https://discord.gg/KKw5QesYbX" target="_blank" rel="noopener">Discord</a>
+                        <a href="mailto:support@neoignite.com">Email</a>
+                    </div>
+                    <span class="footer-note">&copy; <span id="year"></span> NeoIgnite Labs. Built on Neo.</span>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Coming Soon Modal -->
-    <div id="comingSoonModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Coming Soon</h2>
-            <p>This feature is under development. Stay tuned!</p>
-        </div>
-    </div>
-
     <script>
-        // Matrix Rain Effect - Real Matrix
-        let matrixOn = true;
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-        function resizeMatrixCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        const topbar = document.querySelector('.topbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const consoleFeed = document.getElementById('consoleFeed');
+        const year = document.getElementById('year');
+
+        if (year) {
+            year.textContent = new Date().getFullYear();
         }
-        resizeMatrixCanvas();
 
-        // Matrix characters (Japanese katakana + numbers + letters + symbols)
-        const matrixChars = 'アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-
-        const fontSize = 22;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = [];
-        function initMatrixDrops() {
-            columns = Math.floor(canvas.width / fontSize);
-            drops = [];
-            for (let i = 0; i < columns; i++) {
-                drops[i] = Math.random() * -canvas.height;
-            }
-        }
-        initMatrixDrops();
-
-        function drawMatrix() {
-            if (!matrixOn) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                return;
-            }
-            ctx.fillStyle = 'rgba(0,0,0,0.5)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = fontSize + "px 'Courier New', monospace";
-            for (let i = 0; i < columns; i++) {
-                const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-                ctx.fillStyle = (Math.random() < 0.08) ? '#fff' : '#00ff00';
-                ctx.shadowColor = '#00ff00';
-                ctx.shadowBlur = 8;
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                for (let j = 1; j < 10; j++) {
-                    const trailText = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-                    const trailAlpha = 1 - j / 10;
-                    ctx.fillStyle = `rgba(0,255,0,${trailAlpha})`;
-                    ctx.shadowBlur = 0;
-                    ctx.fillText(trailText, i * fontSize, (drops[i] - j) * fontSize);
-                }
-                drops[i] += 0.5 + Math.random() * 0.1;
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
-                    drops[i] = 0;
-                }
-            }
-        }
-        let matrixInterval = setInterval(drawMatrix, 100);
-
-        window.addEventListener('resize', () => {
-            resizeMatrixCanvas();
-            initMatrixDrops();
+        window.addEventListener('scroll', () => {
+            if (!topbar) return;
+            topbar.dataset.elevated = window.scrollY > 14 ? 'true' : 'false';
         });
 
-        // Matrix Toggle
-        const matrixToggle = document.getElementById('matrixToggle');
-        matrixToggle.addEventListener('click', () => {
-            matrixOn = !matrixOn;
-            if (!matrixOn) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-            matrixToggle.textContent = matrixOn ? 'MATRIX: ON' : 'MATRIX: OFF';
-        });
-
-         // Hamburger Menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu on link click
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        });
-    });
-
-        // Modal
-        const modal = document.getElementById('comingSoonModal');
-        const closeModal = document.getElementById('closeModal');
-        const ctaButtons = document.querySelectorAll('[data-action]');
-        ctaButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'block';
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', String(!expanded));
+                mobileMenu.classList.toggle('active');
             });
-        });
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
 
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('active');
                 });
             });
+        }
+
+        const feedMessages = [
+            'Now sequencing consumer launch mechanics, agent payment rails, and the next Neo-native product surface.',
+            'NeoIgnite is operating like a lab: product architecture, launch systems, and ecosystem pressure in one engine.',
+            'Mission target stays the same: help make Neo feel bigger again by shipping systems with force.',
+            'Active vector: NeoMeme on the consumer side, AgentPay on the infrastructure side, new systems on the horizon.'
+        ];
+
+        let feedIndex = 0;
+        if (consoleFeed) {
+            window.setInterval(() => {
+                feedIndex = (feedIndex + 1) % feedMessages.length;
+                consoleFeed.textContent = feedMessages[feedIndex];
+            }, 2800);
+        }
+
+        const canvas = document.getElementById('signalCanvas');
+        const ctx = canvas.getContext('2d');
+        const pointer = { x: 0, y: 0, active: false };
+        let nodes = [];
+        let sweeps = [];
+
+        function resizeCanvas() {
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.floor(window.innerWidth * ratio);
+            canvas.height = Math.floor(window.innerHeight * ratio);
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            buildField();
+        }
+
+        function buildField() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const count = Math.max(28, Math.min(72, Math.floor(width / 26)));
+            nodes = Array.from({ length: count }, (_, index) => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                size: 1.2 + Math.random() * 2.4,
+                tint: index % 4 === 0 ? '#78eeff' : index % 3 === 0 ? '#cbff76' : '#ffb86a'
+            }));
+            sweeps = Array.from({ length: 10 }, (_, index) => ({
+                from: index,
+                to: (index * 7 + 9) % count,
+                progress: Math.random(),
+                speed: 0.002 + Math.random() * 0.003
+            }));
+        }
+
+        function drawField() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            ctx.clearRect(0, 0, width, height);
+
+            nodes.forEach((node) => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < -20) node.x = width + 20;
+                if (node.x > width + 20) node.x = -20;
+                if (node.y < -20) node.y = height + 20;
+                if (node.y > height + 20) node.y = -20;
+
+                if (pointer.active) {
+                    const dx = node.x - pointer.x;
+                    const dy = node.y - pointer.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance > 0 && distance < 180) {
+                        node.x += (dx / distance) * 0.18;
+                        node.y += (dy / distance) * 0.18;
+                    }
+                }
+            });
+
+            for (let i = 0; i < nodes.length; i += 1) {
+                for (let j = i + 1; j < nodes.length; j += 1) {
+                    const a = nodes[i];
+                    const b = nodes[j];
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.globalAlpha = (1 - distance / 150) * 0.18;
+                        ctx.strokeStyle = '#8cabca';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            ctx.globalAlpha = 1;
+            sweeps.forEach((sweep) => {
+                const from = nodes[sweep.from % nodes.length];
+                const to = nodes[sweep.to % nodes.length];
+                sweep.progress += sweep.speed;
+                if (sweep.progress > 1) sweep.progress = 0;
+                const x = from.x + (to.x - from.x) * sweep.progress;
+                const y = from.y + (to.y - from.y) * sweep.progress;
+                const glow = ctx.createRadialGradient(x, y, 0, x, y, 12);
+                glow.addColorStop(0, 'rgba(120, 238, 255, 0.95)');
+                glow.addColorStop(0.5, 'rgba(120, 238, 255, 0.25)');
+                glow.addColorStop(1, 'rgba(120, 238, 255, 0)');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(x, y, 12, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            nodes.forEach((node) => {
+                ctx.fillStyle = node.tint;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(drawField);
+        }
+
+        resizeCanvas();
+        requestAnimationFrame(drawField);
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('pointermove', (event) => {
+            pointer.x = event.clientX;
+            pointer.y = event.clientY;
+            pointer.active = true;
+        });
+        window.addEventListener('pointerleave', () => {
+            pointer.active = false;
         });
     </script>
 </body>
